@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19 Data Visualization</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css')}}">
+</head>
+<body>
+
+
+<div>
+    <form action="{{ url_for('get_country_for_plots') }}" method="post">
+        <select name="Country">
+            {% for country in countries %}
+            <option value="{{country|safe}}">{{country|safe}}</option>
+            {% endfor %}
+        </select>
+        {% for i in range(4) %}
+        <select name="Option{{i}}">
+            {% for option in options_for_plots %}
+            <option value="{{option|safe}}">{{option|safe}}</option>
+            {% endfor %}
+        </select>
+        {% endfor %}
+        <p><input type="submit" value="Submit"></p>
+    </form>
+</div>
+
+<div>
+    <form action="{{ url_for('get_option_for_map') }}" method="post">
+    <select name="Get_option_for_map">
+        {% for option in options %}
+        <option value="{{option|safe}}">{{option|safe}}</option>
+        {% endfor %}
+    </select>
+    <p><input type="submit" value="Submit"></p>
+    </form>
+</div>
+
+
+{% block world_map %}{% endblock %}
+
+{% block plots %}{% endblock %}
+
+
+
+</body>
+</html>
